@@ -1,2 +1,3 @@
-# infrastructure-events
-Events for Infrastructure-as-Code
+# Events
+
+Infrastructure-as-Code Events in PythonEDA
