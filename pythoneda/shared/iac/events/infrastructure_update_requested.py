@@ -1,10 +1,10 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/iac/events/infrastructure_update_requested.py
+pythoneda/shared/iac/events/infrastructure_update_requested.py
 
 This file declares the InfrastructureUpdateRequested event.
 
-Copyright (C) 2024-today pythoneda IaC
+Copyright (C) 2024-today pythoneda-shared-iac/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
