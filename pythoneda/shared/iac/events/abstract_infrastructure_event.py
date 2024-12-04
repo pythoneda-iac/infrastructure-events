@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/iac/events/infrastructure_update_requested.py
+pythoneda/shared/iac/events/abstract_infrastructure_event.py
 
-This file declares the InfrastructureUpdateRequested event.
+This file declares the AbstractInfrastructureEvent event.
 
 Copyright (C) 2024-today pythoneda-shared-iac/events
 
@@ -19,15 +19,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_infrastructure_event import AbstractInfrastructureEvent
+import abc
+from pythoneda.shared import Event, primary_key_attribute
 from typing import List
 
 
-class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
+class AbstractInfrastructureEvent(abc.ABC, Event):
     """
-    Represents the moment an infrastructure update is requested.
+    Represents the moment the infrastructure update fails.
 
-    Class name: InfrastructureUpdateRequested
+    Class name: AbstractInfrastructureEvent
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -46,7 +47,7 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new InfrastructureUpdateRequested instance.
+        Creates a new AbstractInfrastructureEvent instance.
         :param stackName: The name of the stack.
         :type stackName: str
         :param projectName: The name of the project.
@@ -62,13 +63,40 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            stackName,
-            projectName,
-            location,
-            previousEventIds,
-            reconstructedId,
-            reconstructedPreviousEventIds,
+            previousEventIds, reconstructedId, reconstructedPreviousEventIds
         )
+        self._stack_name = stackName
+        self._project_name = projectName
+        self._location = location
+
+    @property
+    @primary_key_attribute
+    def stack_name(self) -> str:
+        """
+        Retrieves the name of the stack.
+        :return: Such name.
+        :rtype: str
+        """
+        return self._stack_name
+
+    @property
+    @primary_key_attribute
+    def project_name(self) -> str:
+        """
+        Retrieves the name of the project.
+        :return: Such name.
+        :rtype: str
+        """
+        return self._project_name
+
+    @property
+    def location(self) -> str:
+        """
+        Retrieves the location.
+        :return: Such location.
+        :rtype: str
+        """
+        return self._location
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

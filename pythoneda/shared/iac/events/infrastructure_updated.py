@@ -19,11 +19,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.shared import Event, primary_key_attribute
+from .abstract_infrastructure_event import AbstractInfrastructureEvent
 from typing import List
 
 
-class InfrastructureUpdated(Event):
+class InfrastructureUpdated(AbstractInfrastructureEvent):
     """
     Represents the moment the infrastructure is updated.
 
@@ -62,40 +62,13 @@ class InfrastructureUpdated(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            previousEventIds, reconstructedId, reconstructedPreviousEventIds
+            stackName,
+            projectName,
+            location,
+            previousEventIds,
+            reconstructedId,
+            reconstructedPreviousEventIds,
         )
-        self._stack_name = stackName
-        self._project_name = projectName
-        self._location = location
-
-    @property
-    @primary_key_attribute
-    def stack_name(self) -> str:
-        """
-        Retrieves the name of the stack.
-        :return: Such name.
-        :rtype: str
-        """
-        return self._stack_name
-
-    @property
-    @primary_key_attribute
-    def project_name(self) -> str:
-        """
-        Retrieves the name of the project.
-        :return: Such name.
-        :rtype: str
-        """
-        return self._project_name
-
-    @property
-    def location(self) -> str:
-        """
-        Retrieves the location.
-        :return: Such location.
-        :rtype: str
-        """
-        return self._location
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

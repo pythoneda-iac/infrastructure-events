@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/iac/events/infrastructure_update_requested.py
+pythoneda/shared/iac/events/infrastructure_update_failed.py
 
-This file declares the InfrastructureUpdateRequested event.
+This file declares the InfrastructureUpdateFailed event.
 
 Copyright (C) 2024-today pythoneda-shared-iac/events
 
@@ -23,11 +23,11 @@ from .abstract_infrastructure_event import AbstractInfrastructureEvent
 from typing import List
 
 
-class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
+class InfrastructureUpdateFailed(AbstractInfrastructureEvent):
     """
-    Represents the moment an infrastructure update is requested.
+    Represents the moment the infrastructure update fails.
 
-    Class name: InfrastructureUpdateRequested
+    Class name: InfrastructureUpdateFailed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -46,7 +46,7 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new InfrastructureUpdateRequested instance.
+        Creates a new InfrastructureUpdateFailed instance.
         :param stackName: The name of the stack.
         :type stackName: str
         :param projectName: The name of the project.
@@ -69,6 +69,15 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
             reconstructedId,
             reconstructedPreviousEventIds,
         )
+
+    @property
+    def is_error(self):
+        """
+        Checks if the event is an error.
+        :return: True if it's an error, False otherwise.
+        :rtype: bool
+        """
+        return True
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

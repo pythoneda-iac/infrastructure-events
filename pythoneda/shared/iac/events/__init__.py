@@ -21,6 +21,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 __path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
+from .docker_resources_update_failed import DockerResourcesUpdateFailed
+from .docker_resources_update_requested import DockerResourcesUpdateRequested
+from .docker_resources_updated import DockerResourcesUpdated
+from .infrastructure_update_failed import InfrastructureUpdateFailed
 from .infrastructure_update_requested import InfrastructureUpdateRequested
 from .infrastructure_updated import InfrastructureUpdated
 

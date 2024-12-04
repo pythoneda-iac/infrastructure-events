@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/iac/events/infrastructure_update_requested.py
+pythoneda/shared/iac/events/docker_resources_updated_failed.py
 
-This file declares the InfrastructureUpdateRequested event.
+This file declares the DockerResourcesUpdateFailed event.
 
 Copyright (C) 2024-today pythoneda-shared-iac/events
 
@@ -19,15 +19,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_infrastructure_event import AbstractInfrastructureEvent
+from .abstract_docker_resources_event import AbstractDockerResourcesEvent
 from typing import List
 
 
-class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
+class DockerResourcesUpdateFailed(AbstractDockerResourcesEvent):
     """
-    Represents the moment an infrastructure update is requested.
+    Represents the moment Docker resources have not been updated.
 
-    Class name: InfrastructureUpdateRequested
+    Class name: DockerResourcesUpdateFailed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -41,18 +41,27 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
         stackName: str,
         projectName: str,
         location: str,
+        imageName: str,
+        imageVersion: str,
+        imageUrl: str = None,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new InfrastructureUpdateRequested instance.
+        Creates a new DockerResourcesUpdateFailed instance.
         :param stackName: The name of the stack.
         :type stackName: str
         :param projectName: The name of the project.
         :type projectName: str
         :param location: The location.
         :type location: str
+        :param imageName: The name of the Docker image.
+        :type imageName: str
+        :param imageVersion: The version of the Docker image.
+        :type imageVersion: str
+        :param imageUrl: The url of the Docker image.
+        :type imageUrl: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -65,10 +74,22 @@ class InfrastructureUpdateRequested(AbstractInfrastructureEvent):
             stackName,
             projectName,
             location,
+            imageName,
+            imageVersion,
+            imageUrl,
             previousEventIds,
             reconstructedId,
             reconstructedPreviousEventIds,
         )
+
+    @property
+    def is_error(self):
+        """
+        Checks if the event is an error.
+        :return: True if it's an error, False otherwise.
+        :rtype: bool
+        """
+        return True
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
