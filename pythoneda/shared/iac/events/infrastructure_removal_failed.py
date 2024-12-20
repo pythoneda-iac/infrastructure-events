@@ -43,7 +43,6 @@ class InfrastructureRemovalFailed(AbstractInfrastructureEvent):
         location: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new InfrastructureRemovalFailed instance.
@@ -57,9 +56,6 @@ class InfrastructureRemovalFailed(AbstractInfrastructureEvent):
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
             stackName,
@@ -67,7 +63,6 @@ class InfrastructureRemovalFailed(AbstractInfrastructureEvent):
             location,
             previousEventIds,
             reconstructedId,
-            reconstructedPreviousEventIds,
         )
 
     @property

@@ -20,11 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import abc
-from pythoneda.shared import Event, primary_key_attribute
+from pythoneda.shared import attribute, Event, primary_key_attribute
 from typing import List
 
 
-class AbstractInfrastructureEvent(abc.ABC, Event):
+class AbstractInfrastructureEvent(Event, abc.ABC):
     """
     Represents the moment the infrastructure update fails.
 
@@ -44,7 +44,6 @@ class AbstractInfrastructureEvent(abc.ABC, Event):
         location: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new AbstractInfrastructureEvent instance.
@@ -58,13 +57,8 @@ class AbstractInfrastructureEvent(abc.ABC, Event):
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
-        super().__init__(
-            previousEventIds, reconstructedId, reconstructedPreviousEventIds
-        )
+        super().__init__(previousEventIds, reconstructedId)
         self._stack_name = stackName
         self._project_name = projectName
         self._location = location
@@ -90,6 +84,7 @@ class AbstractInfrastructureEvent(abc.ABC, Event):
         return self._project_name
 
     @property
+    @attribute
     def location(self) -> str:
         """
         Retrieves the location.

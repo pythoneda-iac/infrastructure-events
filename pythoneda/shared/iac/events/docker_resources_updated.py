@@ -46,7 +46,6 @@ class DockerResourcesUpdated(AbstractDockerResourcesEvent):
         imageUrl: str = None,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new DockerResourcesUpdated instance.
@@ -66,9 +65,6 @@ class DockerResourcesUpdated(AbstractDockerResourcesEvent):
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
             stackName,
@@ -79,7 +75,6 @@ class DockerResourcesUpdated(AbstractDockerResourcesEvent):
             imageUrl,
             previousEventIds,
             reconstructedId,
-            reconstructedPreviousEventIds,
         )
 
 
