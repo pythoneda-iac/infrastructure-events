@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 __path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
+from .docker_image_details_requested import DockerImageDetailsRequested
 from .docker_resources_removal_requested import DockerResourcesRemovalRequested
 from .docker_resources_removal_failed import DockerResourcesRemovalFailed
 from .docker_resources_removed import DockerResourcesRemoved

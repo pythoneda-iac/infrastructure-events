@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/iac/events/abstract_docker_resources_event.py
+pythoneda/shared/iac/events/docker_image_update_requested.py
 
-This file declares the AbstractDockerResourcesEvent event.
+This file declares the DockerImageDetailsRequested event.
 
 Copyright (C) 2024-today pythoneda-shared-iac/events
 
@@ -19,20 +19,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import abc
 from .abstract_docker_event import AbstractDockerEvent
-from pythoneda.shared import attribute, Event, primary_key_attribute
-from typing import List
+from pythoneda.shared import attribute
+from typing import Dict, List
 
 
-class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
+class DockerImageDetailsRequested(AbstractDockerEvent):
     """
-    Base class for Docker resources events.
+    Represents the moment the details of a Docker image is requested.
 
-    Class name: AbstractDockerResourcesEvent
+    Class name: DockerImageDetailsRequested
 
     Responsibilities:
-        - Common information for Docker resources events.
+        - Wraps all contextual information of the event.
 
     Collaborators:
         - None
@@ -43,26 +42,20 @@ class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
         stackName: str,
         projectName: str,
         location: str,
-        imageName: str,
-        imageVersion: str,
-        imageUrl: str = None,
+        metadata: Dict[str, str],
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
         """
-        Creates a new AbstractDockerResourcesEvent instance.
+        Creates a new DockerImageDetailsRequested instance.
         :param stackName: The name of the stack.
         :type stackName: str
         :param projectName: The name of the project.
         :type projectName: str
         :param location: The location.
         :type location: str
-        :param imageName: The name of the Docker image.
-        :type imageName: str
-        :param imageVersion: The version of the Docker image.
-        :type imageVersion: str
-        :param imageUrl: The url of the Docker image.
-        :type imageUrl: str
+        :param metadata: Image metadata.
+        :type metadata: Dict[str, str]
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -75,35 +68,17 @@ class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
             previousEventIds,
             reconstructedId,
         )
-        self._image_name = imageName
-        self._image_version = imageVersion
-        self._image_url = imageUrl
+        self._metadata = metadata
 
     @property
-    def image_name(self) -> str:
+    @attribute
+    def metadata(self) -> Dict[str, str]:
         """
-        Retrieves the name of the Docker image.
-        :return: Such name.
-        :rtype: str
+        Retrieves the image request metadata.
+        :return: Such metadata.
+        :rtype: Dict[str, str]
         """
-        return self._image_name
-
-    @property
-    def image_version(self) -> str:
-        """
-        Retrieves the version of the Docker image.
-        :return: Such version.
-        :rtype: str
-        """
-        return self._image_version
-
-    @property
-    def image_url(self) -> str:
-        """
-        Retrieves the url of the Docker image.
-        :return: Such url.
-        """
-        return self._image_url
+        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

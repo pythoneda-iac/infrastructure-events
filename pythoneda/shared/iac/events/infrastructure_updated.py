@@ -20,7 +20,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_infrastructure_event import AbstractInfrastructureEvent
-from typing import List
+from pythoneda.shared import attribute
+from typing import Dict, List
 
 
 class InfrastructureUpdated(AbstractInfrastructureEvent):
@@ -41,6 +42,7 @@ class InfrastructureUpdated(AbstractInfrastructureEvent):
         stackName: str,
         projectName: str,
         location: str,
+        metadata: Dict[str, str],
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
@@ -52,6 +54,8 @@ class InfrastructureUpdated(AbstractInfrastructureEvent):
         :type projectName: str
         :param location: The location.
         :type location: str
+        :param metadata: Additional metadata.
+        :type metadata: Dict[str, str]
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -64,6 +68,17 @@ class InfrastructureUpdated(AbstractInfrastructureEvent):
             previousEventIds,
             reconstructedId,
         )
+        self._metadata = metadata
+
+    @property
+    @attribute
+    def metadata(self) -> Dict[str, str]:
+        """
+        Returns the metadata.
+        :return: The metadata.
+        :rtype: Dict[str, str]
+        """
+        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
