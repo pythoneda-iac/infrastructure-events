@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_infrastructure_event import AbstractInfrastructureEvent
-from typing import List
+from typing import Dict, List
 
 
 class InfrastructureUpdateFailed(AbstractInfrastructureEvent):
@@ -41,6 +41,7 @@ class InfrastructureUpdateFailed(AbstractInfrastructureEvent):
         stackName: str,
         projectName: str,
         location: str,
+        metadata: Dict = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
@@ -52,6 +53,8 @@ class InfrastructureUpdateFailed(AbstractInfrastructureEvent):
         :type projectName: str
         :param location: The location.
         :type location: str
+        :param metadata: Additional request metadata.
+        :type metadata: Dict
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -61,6 +64,7 @@ class InfrastructureUpdateFailed(AbstractInfrastructureEvent):
             stackName,
             projectName,
             location,
+            metadata,
             previousEventIds,
             reconstructedId,
         )

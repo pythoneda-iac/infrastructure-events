@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_resources_event import AbstractDockerResourcesEvent
-from typing import List
+from typing import Dict, List
 
 
 class DockerResourcesRemovalRequested(AbstractDockerResourcesEvent):
@@ -44,6 +44,7 @@ class DockerResourcesRemovalRequested(AbstractDockerResourcesEvent):
         imageName: str,
         imageVersion: str,
         imageUrl: str = None,
+        metadata: Dict = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
@@ -61,6 +62,8 @@ class DockerResourcesRemovalRequested(AbstractDockerResourcesEvent):
         :type imageVersion: str
         :param imageUrl: The url of the Docker image.
         :type imageUrl: str
+        :param metadata: Additional request metadata.
+        :type metadata: Dict
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -73,6 +76,7 @@ class DockerResourcesRemovalRequested(AbstractDockerResourcesEvent):
             imageName,
             imageVersion,
             imageUrl,
+            metadata,
             previousEventIds,
             reconstructedId,
         )

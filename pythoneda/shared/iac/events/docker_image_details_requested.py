@@ -65,20 +65,10 @@ class DockerImageDetailsRequested(AbstractDockerEvent):
             stackName,
             projectName,
             location,
+            metadata,
             previousEventIds,
             reconstructedId,
         )
-        self._metadata = metadata
-
-    @property
-    @attribute
-    def metadata(self) -> Dict[str, str]:
-        """
-        Retrieves the image request metadata.
-        :return: Such metadata.
-        :rtype: Dict[str, str]
-        """
-        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

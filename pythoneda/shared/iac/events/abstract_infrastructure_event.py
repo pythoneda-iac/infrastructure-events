@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import abc
 from pythoneda.shared import attribute, Event, primary_key_attribute
-from typing import List
+from typing import Dict, List
 
 
 class AbstractInfrastructureEvent(Event, abc.ABC):
@@ -42,6 +42,7 @@ class AbstractInfrastructureEvent(Event, abc.ABC):
         stackName: str,
         projectName: str,
         location: str,
+        metadata: Dict = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
@@ -53,6 +54,8 @@ class AbstractInfrastructureEvent(Event, abc.ABC):
         :type projectName: str
         :param location: The location.
         :type location: str
+        :param metadata: Additional request metadata.
+        :type metadata: Dict
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -62,6 +65,7 @@ class AbstractInfrastructureEvent(Event, abc.ABC):
         self._stack_name = stackName
         self._project_name = projectName
         self._location = location
+        self._metadata = metadata
 
     @property
     @primary_key_attribute
@@ -92,6 +96,16 @@ class AbstractInfrastructureEvent(Event, abc.ABC):
         :rtype: str
         """
         return self._location
+
+    @property
+    @attribute
+    def metadata(self) -> Dict:
+        """
+        Retrieves the metadata.
+        :return: Such metadata.
+        :rtype: Dict
+        """
+        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

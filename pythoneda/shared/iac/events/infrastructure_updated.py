@@ -65,20 +65,10 @@ class InfrastructureUpdated(AbstractInfrastructureEvent):
             stackName,
             projectName,
             location,
+            metadata,
             previousEventIds,
             reconstructedId,
         )
-        self._metadata = metadata
-
-    @property
-    @attribute
-    def metadata(self) -> Dict[str, str]:
-        """
-        Returns the metadata.
-        :return: The metadata.
-        :rtype: Dict[str, str]
-        """
-        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import abc
 from .abstract_docker_event import AbstractDockerEvent
 from pythoneda.shared import attribute, Event, primary_key_attribute
-from typing import List
+from typing import Dict, List
 
 
 class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
@@ -46,6 +46,7 @@ class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
         imageName: str,
         imageVersion: str,
         imageUrl: str = None,
+        metadata: Dict = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
     ):
@@ -63,6 +64,8 @@ class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
         :type imageVersion: str
         :param imageUrl: The url of the Docker image.
         :type imageUrl: str
+        :param metadata: Additional request metadata.
+        :type metadata: Dict
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -72,6 +75,7 @@ class AbstractDockerResourcesEvent(AbstractDockerEvent, abc.ABC):
             stackName,
             projectName,
             location,
+            metadata,
             previousEventIds,
             reconstructedId,
         )
