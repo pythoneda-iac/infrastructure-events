@@ -61,11 +61,11 @@ class AbstractDockerEvent(Event, abc.ABC):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
-        super().__init__(previousEventIds, reconstructedId)
         self._stack_name = stackName
         self._project_name = projectName
         self._location = location
         self._metadata = metadata
+        super().__init__(previousEventIds, reconstructedId)
 
     @property
     @primary_key_attribute
